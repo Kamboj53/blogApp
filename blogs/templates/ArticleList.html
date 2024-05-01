@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+  
+<body>
+    {% include 'navbar.html' %}
+    
+    {% include 'search.html' %}
+    
+    <!-- Categories Section Begin -->
+    <section class="categories categories-grid spad">
+        <div class="categories__post">
+            <div class="container">
+                <div class="categories__grid__post">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8">
+                            {% for obj in blogs %}
+                            <div class="categories__list__post__item">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        {% if obj.image.url != '' %}
+                                        
+                                        <div class="categories__post__item__pic set-bg">
+                                            <img src="{{ obj.image.url }}" alt="">
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="categories__post__item__text">
+                                            <span class="post__label">
+                                                {% for tag in obj.tags.all %}
+                                                    <span>{{ tag.name }}, </span>
+                                                {% endfor %}
+                                            </span>
+                                            <h3><a href="{% url 'blogs:article_detail' obj.pk %}">{{ obj.title }}</a></h3>
+                                            <p>{{ obj.description|slice:":30" }} .... <a href="{% url 'blogs:article_detail' obj.pk %}">Continue Reading</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          {% endfor %}
+                            
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="categories__pagination">
+                                        <div class="pagination">
+                                            <span class="step-links">
+                                              {% if page_obj.has_previous %}
+                                                <a href="?page=1">&laquo; First</a>
+                                                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                                              {% endif %}
+                                    
+                                              <span class="current">
+                                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                                              </span>
+                                    
+                                              {% if page_obj.has_next %}
+                                                <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                                                <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                                              {% endif %}
+                                            </span>
+                                          </div>
+                                        {% comment %} <a href="#">1</a>
+                                        <a href="#">2</a>
+                                        <a href="#">3</a>
+                                        <a href="#">Next</a> {% endcomment %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="sidebar__item">
+                                <div class="sidebar__about__item">
+                                    <div class="sidebar__item__title">
+                                        <h6>About me</h6>
+                                    </div>
+                                    <img src="img/sidebar/sidebar-about.jpg" alt="">
+                                    <h6>Hi every one! I,m <span>I m Author (Sample USer).</span></h6>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua.</p>
+                                    <a href="#" class="primary-btn">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Categories Section End -->
+    {% include 'footer.html' %}
+</body>
+{% endblock body %}
