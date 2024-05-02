@@ -18,19 +18,23 @@ def index(request):
     return render(request, 'index.html')
 
 def search_tags(request):
+    #Needed to add later
     pass
 
 def search(request):
+    #Needed to add later
     pass
 
 
 class ArticleDetailView(LoginRequiredMixin, DetailView):
+    #View for the Detailed view of the blog
     model = BlogModel
     template_name = 'ArticleDetail.html'
     login_url = 'login/'
     
 @decorators.login_required(login_url="/login/")        
 def comments(request, pk:int):
+    #View for adding the comments. TODO- FULL CRUD of comments 
     try:
         blog = get_object_or_404(BlogModel, pk=pk)
         if request.method == 'POST':
@@ -42,6 +46,7 @@ def comments(request, pk:int):
 
 
 class ArticleListView(LoginRequiredMixin, ListView):
+    #View for list of the blogs
     model = BlogModel
     template_name = "ArticleList.html"
     context_object_name = 'blogs'
@@ -49,6 +54,7 @@ class ArticleListView(LoginRequiredMixin, ListView):
     login_url = 'login/'
     
 def register(request):
+    #View for registering account
     if request.user.is_authenticated:
         return redirect("blogs:article_list")
     try:
@@ -75,6 +81,7 @@ def register(request):
 
 
 def loginUser(request):
+    #View for login the account
     if request.user.is_authenticated:
         return redirect("blogs:article_list")
     try:
@@ -107,6 +114,7 @@ def loginUser(request):
     
 @decorators.login_required(login_url="/login/")
 def logoutUser(request):
+    #View for logout account
     logout(request)
     # messages.success(request,"Logout Successfully")
     return redirect("blogs:index")
