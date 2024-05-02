@@ -25,7 +25,7 @@ class LoginForm(forms.Form):
     password = forms.CharField(max_length=20,label = "Enter your password",widget = forms.PasswordInput)
     
     
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = '__all__' 
+# class CommentForm(forms.ModelForm):
+#     class Meta:
+#         model = Comment
+#         fields = '__all__' 
