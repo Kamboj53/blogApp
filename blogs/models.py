@@ -7,7 +7,7 @@ class Tags(models.Model):
     name = models.CharField(max_length=20)
     
     def __str__(self) -> str:
-        return 
+        return self.name
 
 class BlogModel(models.Model):
     title = models.CharField(max_length=50, null = False, blank=False)
